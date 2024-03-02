@@ -42,7 +42,7 @@ def load_prediction(selected_model, city):
 
 # to load model
 def load_model(selected_model, city):
-    path = "{}/{}_model.csv".format(selected_model, city)
+    path = "{}/{}_model.json".format(selected_model, city)
     with open(path, 'r') as fin:
         m = model_from_json(fin.read())  # Load model
     return m
