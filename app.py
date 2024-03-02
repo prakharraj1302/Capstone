@@ -2,6 +2,7 @@
 import pandas as pd
 from PIL import Image
 from streamlit_lottie import st_lottie
+import plotly.graph_objects as go
 import streamlit as st
 import requests
 from prophet.serialize import model_from_json
@@ -9,9 +10,6 @@ from prophet.plot import plot_plotly
 # from prophet.holidays import Turkey
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
-
-
-# defining necessary functions
 
 
 # Description
@@ -31,10 +29,12 @@ def local_css(file_name):
     with open(file_name) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
+def conv(x):
+    return round(x)
 
 # to load next year prediction
 def load_prediction(selected_model, city):
-    path = "winner/{}/winner_{}_prediction.csv".format(selected_model, city)
+    path = "{}/{}_csv.csv".format(selected_model, city)
     print(path)
     df = pd.read_csv(path)
     return df
@@ -42,12 +42,53 @@ def load_prediction(selected_model, city):
 
 # to load model
 def load_model(selected_model, city):
-    path = "winner/{}/winner_{}_model.json".format(selected_model, city)
+    path = "{}/{}_model.csv".format(selected_model, city)
     with open(path, 'r') as fin:
         m = model_from_json(fin.read())  # Load model
     return m
 
+def line_plot_plotly(m, forecast, mode, model):
+    past = m.history['y']
+    future = forecast['yhat']
+    if model == 'AQI':
+        future = future.apply(conv)
+    timeline = forecast['ds']
 
+    trace1 = go.Scatter(
+        x=timeline,
+        y=past,
+        mode=mode,
+        name='Actual',
+        line=dict(color='#777777')
+    )
+    trace2 = go.Scatter(
+        x=timeline,
+        y=future,
+        mode=mode,
+        name='Predicted',
+        line=dict(color='#FF7F50')
+    )
+
+    data = [trace1, trace2]
+
+    layout = go.Layout(
+        title='Actual vs. Predicted Values',
+        xaxis=dict(title='Date', rangeslider=dict(visible=True),
+                   rangeselector=dict(
+            buttons=list([
+                dict(count=1, label="1y", step="year", stepmode="backward"),
+                dict(count=2, label="2y", step="year", stepmode="backward"),
+                dict(count=3, label="3y", step="year", stepmode="backward"),
+                dict(step="all")
+            ])
+        )),
+        yaxis=dict(title='Value'),
+        showlegend=True
+    )
+
+    fig = go.Figure(data=data, layout=layout)
+
+    return fig
 
 
 # ---- LOAD ASSETS ----
@@ -73,7 +114,7 @@ selected_model = st.sidebar.selectbox('Choose:', ('Heat wave', 'AQI'))
 st.sidebar.write('''
 
 ''')
-cities = ('Adilabad', 'Nizamabad', 'Karimnagar', 'Khammam', 'Warangal')
+cities = ('Dehli', 'Chennai', 'Bengaluru')
 selected_city = st.sidebar.selectbox('Select a city for prediction', cities)
 
 # image = Image.open('images/logo.png')
@@ -148,7 +189,7 @@ with st.container():
     with st.spinner('Loading Model Into Memory....'):
         m = load_model(selected_model, selected_city)
 
-    # forecast = load_prediction(selected_model, selected_city)
+    forecast = load_prediction(selected_model, selected_city)
 
 
 path1 = "winner/{}/winner_{}_prediction.csv".format(
@@ -162,21 +203,21 @@ if selected_model == 'Heat wave':
 
     agree = st.checkbox('Line graph')
 
-    # if agree:
-    #     fig1 = line_plot_plotly(m, forecast, 'lines', selected_model)
+    if agree:
+        fig1 = line_plot_plotly(m, forecast, 'lines', selected_model)
 
-    #     fig1.update_layout(
-    #         plot_bgcolor='#7FFFD4',  # set the background color
-    #         paper_bgcolor='#F8F8F8',  # set the background color of the plot area
-    #     )
+        fig1.update_layout(
+            plot_bgcolor='#7FFFD4',  # set the background color
+            paper_bgcolor='#F8F8F8',  # set the background color of the plot area
+        )
 
-    # else:
-    #     fig1 = plot_plotly(m, forecast)
+    else:
+        fig1 = plot_plotly(m, forecast)
 
-    #     fig1.update_layout(
-    #         plot_bgcolor='#7FFFD4',  # set the background color
-    #         paper_bgcolor='#F8F8F8',  # set the background color of the plot area
-    #     )
+        fig1.update_layout(
+            plot_bgcolor='#7FFFD4',  # set the background color
+            paper_bgcolor='#F8F8F8',  # set the background color of the plot area
+        )
 else:
     info("Info", '''The Graph displays the prediction and actual AQI Reading for the range of the full dataset and for year 2023
     The orange points shows the predicted value and the grey points shows the actual value of AQI.''')
