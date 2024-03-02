@@ -114,7 +114,7 @@ selected_model = st.sidebar.selectbox('Choose:', ('Heat wave', 'AQI'))
 st.sidebar.write('''
 
 ''')
-cities = ('Bengaluru')
+cities = ('Bengaluru','Dehli', 'Chennai' )
 selected_city = st.sidebar.selectbox('Select a city for prediction', cities)
 
 # image = Image.open('images/logo.png')
