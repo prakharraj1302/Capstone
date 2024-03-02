@@ -107,9 +107,10 @@ with st.container():
             st.write("[Solution Architecture](https://www.craft.do/s/1eTduABsPuFIDX)")
 
     with right_column:
-        i = 'images/{}_hw2.jpg'.format(selected_model)
-        image = Image.open(i)
-        st.image(image)
+        st.title("")
+        # i = 'images/{}_hw2.jpg'.format(selected_model)
+        # image = Image.open(i)
+        # st.image(image)
 
 
 # ---- Introduction ----
