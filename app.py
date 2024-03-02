@@ -210,6 +210,7 @@ if selected_model == 'Heat wave':
             plot_bgcolor='#7FFFD4',  # set the background color
             paper_bgcolor='#F8F8F8',  # set the background color of the plot area
         )
+        st.plotly_chart(fig1)
 
     else:
         fig1 = plot_plotly(m, forecast)
@@ -218,6 +219,7 @@ if selected_model == 'Heat wave':
             plot_bgcolor='#7FFFD4',  # set the background color
             paper_bgcolor='#F8F8F8',  # set the background color of the plot area
         )
+        st.plotly_chart(fig1)
 else:
     info("Info", '''The Graph displays the prediction and actual AQI Reading for the range of the full dataset and for year 2023
     The orange points shows the predicted value and the grey points shows the actual value of AQI.''')
@@ -229,5 +231,5 @@ else:
     # )
 
 
-st.plotly_chart(fig1)
+
 
