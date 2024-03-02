@@ -229,5 +229,5 @@ else:
     # )
 
 
-# st.plotly_chart(fig1)
+st.plotly_chart(fig1)
 
