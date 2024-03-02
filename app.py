@@ -1,15 +1,5 @@
-# importing necessary libraries
-import plotly.graph_objects as go
-from sttime import st_timeline
-import base64
-from shapely.geometry import Point
-import datetime
-import smtplib
-import geopandas as gpd
+
 import pandas as pd
-from streamlit_folium import folium_static
-from folium.plugins import Search
-import folium
 from PIL import Image
 from streamlit_lottie import st_lottie
 import streamlit as st
@@ -48,6 +38,7 @@ def load_prediction(selected_model, city):
     print(path)
     df = pd.read_csv(path)
     return df
+
 
 # to load model
 def load_model(selected_model, city):
