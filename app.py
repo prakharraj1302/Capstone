@@ -186,11 +186,10 @@ with st.container():
 
 
     with right_column:
-        st.title("")
-        st.markdown("<h2 style='text-align: right; color: green;'>In guidance of:</h2>", unsafe_allow_html=True)
-        st.markdown("<h3 style='text-align: right; color: green;'>Dr. Sandip Mal</h3>", unsafe_allow_html=True)
-        st.markdown("<h3 style='text-align: right; color: green;'>Dr. Preetam Suman</h3>", unsafe_allow_html=True)
-        st.markdown("<h3 style='text-align: right; color: green;'>Dr. Sasmita Padhy</h3>", unsafe_allow_html=True)
+        st.markdown("<h4 style='text-align: right; color: green;'>In guidance of:</h4>", unsafe_allow_html=True)
+        st.markdown("<h5 style='text-align: right; color: green;'>Dr. Sandip Mal</h5>", unsafe_allow_html=True)
+        st.markdown("<h5 style='text-align: right; color: green;'>Dr. Preetam Suman</h5>", unsafe_allow_html=True)
+        st.markdown("<h5 style='text-align: right; color: green;'>Dr. Sasmita Padhy</h5>", unsafe_allow_html=True)
 
         # i = 'images/{}_hw2.jpg'.format(selected_model)
         # image = Image.open(i)
