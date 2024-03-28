@@ -186,14 +186,16 @@ with st.container():
 
 
     with right_column:
+        
+        i = "./images/vit-logo.png"
+        image = Image.open(i)
+        st.image(image)        
         st.markdown("<h4 style='text-align: right; color: green;'>In guidance of:</h4>", unsafe_allow_html=True)
         st.markdown("<h5 style='text-align: right; color: green;'>Dr. Sandip Mal</h5>", unsafe_allow_html=True)
         st.markdown("<h5 style='text-align: right; color: green;'>Dr. Preetam Suman</h5>", unsafe_allow_html=True)
         st.markdown("<h5 style='text-align: right; color: green;'>Dr. Sasmita Padhy</h5>", unsafe_allow_html=True)
 
-        # i = 'images/{}_hw2.jpg'.format(selected_model)
-        # image = Image.open(i)
-        # st.image(image)
+
         
 
 
