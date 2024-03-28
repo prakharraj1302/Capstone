@@ -134,19 +134,17 @@ Created with ❤️ by [Team Tarang.ai](https://github.com/iamneo-production/00a
 with st.container():
     left_column, right_column = st.columns(2)
     with left_column:
-        st.title("Team Tarang.ai")
+        st.title("Capstone Project - Team Tarang.ai")
         st.write("Stay ahead of the heat and breathe easy with Team Tarang.ai")
-        name = "{} Prediction".format(selected_model)
-        st.title(name)
-        st.write(
-            "Telangana Tier-2 cities - Alidabad, Nizamabad, Karimnagar, Khammam and Warangal."
-        )
+
+
         if selected_model == "Heat wave":
-            st.write("[Exploratory Data Analysis(EDA)](https://colab.research.google.com/drive/1xH77_KLE3gpmTxGk9-X36Pj6lHee0iBc?usp=sharing#scrollTo=nybHfIsygGzp)")
-            st.write("[Solution Architecture](https://www.craft.do/s/1eTduABsPuFIDX)")
+            # st.write("[Exploratory Data Analysis(EDA)](https://colab.research.google.com/drive/1xH77_KLE3gpmTxGk9-X36Pj6lHee0iBc?usp=sharing#scrollTo=nybHfIsygGzp)")
+            # st.write("[Solution Architecture](https://www.craft.do/s/1eTduABsPuFIDX)")
             
             st.write("---")
-            st.title("Heatwaves Analysis")
+            name = "{} Prediction".format(selected_model)
+            st.title(name)
 
             st.header("Introduction:")
             st.write("Our research delves into the escalating frequency and severity of heatwaves, a consequence of shifting weather patterns induced by climate change. We focus on three major Indian cities—Bangalore, Chennai, and Delhi NCR—where rapid urbanization exacerbates the urban heat island effect, amplifying the impacts of extreme heat events on public health and urban infrastructure.")
@@ -165,10 +163,11 @@ with st.container():
 
 
         else:
-            st.write("[Exploratory Data Analysis(EDA)](https://colab.research.google.com/drive/1WgV57xtbG05shrxy47Fw59oOmzTZ2yJv?usp=sharing)")
-            st.write("[Solution Architecture](https://www.craft.do/s/1eTduABsPuFIDX)")
+            # st.write("[Exploratory Data Analysis(EDA)](https://colab.research.google.com/drive/1WgV57xtbG05shrxy47Fw59oOmzTZ2yJv?usp=sharing)")
+            # st.write("[Solution Architecture](https://www.craft.do/s/1eTduABsPuFIDX)")
             
-            st.title("Air Quality Index Analysis")
+            name = "{} Prediction".format(selected_model)
+            st.title(name)
 
             st.header("Introduction:")
             st.write("Our study investigates the deteriorating air quality in major Indian cities, particularly focusing on Bangalore, Chennai, and Delhi NCR. Rapid urbanization and industrialization have contributed to soaring pollution levels, posing significant threats to public health and environmental sustainability.")
@@ -188,6 +187,7 @@ with st.container():
 
     with right_column:
         st.title("")
+        st.write("In guidance of: Dr. Sndip Mal, Dr. Preetam Suman, Dr. Sasmita Padhy")
         # i = 'images/{}_hw2.jpg'.format(selected_model)
         # image = Image.open(i)
         # st.image(image)
@@ -196,26 +196,26 @@ with st.container():
 
 
 # ---- Introduction ----
-with st.container():
-    st.write("---")
-    left_column, right_column = st.columns(2)
-    with left_column:
-        st.header("Our Vision and Approach")
-        st.write(
-            """
-            Welcome to Team Tarang.ai a home of Heatwave and AQI Prediction Platform! We are here to help you prepare for extreme weather conditions and make informed decisions to protect yourself and your loved ones.
+# with st.container():
+#     st.write("---")
+#     left_column, right_column = st.columns(2)
+#     with left_column:
+#         st.header("Our Vision and Approach")
+#         st.write(
+#             """
+#             Welcome to Team Tarang.ai a home of Heatwave and AQI Prediction Platform! We are here to help you prepare for extreme weather conditions and make informed decisions to protect yourself and your loved ones.
 
-            Our platform offers a seamless user journey, starting with the homepage where you can select the criteria you want to predict and the city you are interested in. Once you make your selection, our platform provides you with a graphical representation of the selected criteria for the chosen city, giving you a quick overview of the situation.
+#             Our platform offers a seamless user journey, starting with the homepage where you can select the criteria you want to predict and the city you are interested in. Once you make your selection, our platform provides you with a graphical representation of the selected criteria for the chosen city, giving you a quick overview of the situation.
 
-            The platform also includes polar plots and maps for analyzing trends and a map feature for visualizing data for selected cities. Our proposed solution architecture is scalable, adaptable, cost-effective, and dynamic due to retraining and versioning, and CI/CD implementation. Our platform offers a smooth and interactive user experience, providing all necessary information and insights about heatwave and AQI prediction for selected cities.
-            """
-        )
+#             The platform also includes polar plots and maps for analyzing trends and a map feature for visualizing data for selected cities. Our proposed solution architecture is scalable, adaptable, cost-effective, and dynamic due to retraining and versioning, and CI/CD implementation. Our platform offers a smooth and interactive user experience, providing all necessary information and insights about heatwave and AQI prediction for selected cities.
+#             """
+#         )
 
-    with right_column:
-        if selected_model == 'Heat wave':
-            st_lottie(lottie_coding_1, height=300, key="coding")
-        else:
-            st_lottie(lottie_coding_2, height=300, key="coding")
+#     with right_column:
+#         if selected_model == 'Heat wave':
+#             st_lottie(lottie_coding_1, height=300, key="coding")
+#         else:
+#             st_lottie(lottie_coding_2, height=300, key="coding")
 
 
 st.write("---")
