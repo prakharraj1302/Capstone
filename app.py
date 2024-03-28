@@ -186,6 +186,9 @@ with st.container():
 
 
     with right_column:
+        
+        st.markdown("<div><img src={./images/logo-capsotone.png} alt=""><img src={./images/vit-logo.png} alt=""></div>")
+        
         st.markdown("<h4 style='text-align: right; color: green;'>In guidance of:</h4>", unsafe_allow_html=True)
         st.markdown("<h5 style='text-align: right; color: green;'>Dr. Sandip Mal</h5>", unsafe_allow_html=True)
         st.markdown("<h5 style='text-align: right; color: green;'>Dr. Preetam Suman</h5>", unsafe_allow_html=True)
