@@ -136,11 +136,11 @@ with st.container():
     with left_column:
         # i1 = "/images/logo-capstone.png"
         # image1 = Image.open(i1)
-        st.image("/images/logo-capstone.png")  
+        # st.image("/images/logo-capstone.png")  
         
         # i2 = "/images/vit-logo.png"
         # image2 = Image.open(i2)
-        st.image("/images/vit-logo.png") 
+        # st.image("/images/vit-logo.png") 
         
         st.title("Capstone Project - Team Tarang.ai")
         st.write("Stay ahead of the heat and breathe easy with Team Tarang.ai")
