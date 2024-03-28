@@ -134,13 +134,13 @@ Created with ❤️ by [Team Tarang.ai](https://github.com/iamneo-production/00a
 with st.container():
     left_column, right_column = st.columns(2)
     with left_column:
-        i1 = "/images/logo-capstone.png"
-        image1 = Image.open(i1)
-        st.image(image1)  
+        # i1 = "/images/logo-capstone.png"
+        # image1 = Image.open(i1)
+        st.image("/images/logo-capstone.png")  
         
-        i2 = "/images/vit-logo.png"
-        image2 = Image.open(i2)
-        st.image(image2)  
+        # i2 = "/images/vit-logo.png"
+        # image2 = Image.open(i2)
+        st.image("/images/vit-logo.png") 
         
         st.title("Capstone Project - Team Tarang.ai")
         st.write("Stay ahead of the heat and breathe easy with Team Tarang.ai")
