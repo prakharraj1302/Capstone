@@ -195,6 +195,10 @@ with st.container():
         st.markdown("<h5 style='text-align: right; color: green;'>Dr. Preetam Suman</h5>", unsafe_allow_html=True)
         st.markdown("<h5 style='text-align: right; color: green;'>Dr. Sasmita Padhy</h5>", unsafe_allow_html=True)
 
+        if selected_model == 'Heat wave':
+                st_lottie(lottie_coding_1, height=300, key="coding")
+        else:
+            st_lottie(lottie_coding_2, height=300, key="coding")
 
         
 
