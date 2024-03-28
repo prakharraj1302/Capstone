@@ -157,17 +157,22 @@ with st.container():
             st.header("Introduction:")
             st.write("Our research delves into the escalating frequency and severity of heatwaves, a consequence of shifting weather patterns induced by climate change. We focus on three major Indian cities—Bangalore, Chennai, and Delhi NCR—where rapid urbanization exacerbates the urban heat island effect, amplifying the impacts of extreme heat events on public health and urban infrastructure.")
 
-            st.header("Research Methodology:")
-            st.write("We employed a multi-faceted approach combining advanced machine learning techniques like Gradient Boosting and Random Forest with traditional time series forecasting models such as ARIMA. By analyzing over three decades of historical weather data, we aimed to discern patterns and predict future heatwave occurrences accurately.")
+            lc1, rc1 = st.columns(2)
+            with lc1:
+                st.header("Research Methodology:")
+                st.write("We employed a multi-faceted approach combining advanced machine learning techniques like Gradient Boosting and Random Forest with traditional time series forecasting models such as ARIMA. By analyzing over three decades of historical weather data, we aimed to discern patterns and predict future heatwave occurrences accurately.")
+            with rc1:
+                st.header("Key Findings:")
+                st.write("Our analysis revealed that Gradient Boosting outperformed other models in capturing complex temperature fluctuations, indicating its efficacy in predicting heatwave occurrences with high precision. Random Forest also demonstrated commendable performance, showcasing its robustness in handling variance and making reliable predictions.")
 
-            st.header("Key Findings:")
-            st.write("Our analysis revealed that Gradient Boosting outperformed other models in capturing complex temperature fluctuations, indicating its efficacy in predicting heatwave occurrences with high precision. Random Forest also demonstrated commendable performance, showcasing its robustness in handling variance and making reliable predictions.")
-
-            st.header("Implications:")
-            st.write("Understanding heatwave trends and predicting future occurrences is crucial for urban planning and public health interventions. Our findings underscore the importance of integrating advanced analytics into climate resilience strategies, enabling policymakers to mitigate the adverse impacts of extreme heat events on vulnerable populations and infrastructure.")
-
-            st.header("Conclusion:")
-            st.write("Our research sheds light on the escalating threat of heatwaves in major Indian cities and underscores the significance of proactive measures to enhance climate resilience. By harnessing the power of advanced machine learning techniques, we offer valuable insights for policymakers and urban planners to develop effective strategies for mitigating the impacts of extreme heat events on public health and urban infrastructure.")
+            lc2, rc2 = st.columns(2)
+            
+            with lc2:
+                st.header("Implications:")
+                st.write("Understanding heatwave trends and predicting future occurrences is crucial for urban planning and public health interventions. Our findings underscore the importance of integrating advanced analytics into climate resilience strategies, enabling policymakers to mitigate the adverse impacts of extreme heat events on vulnerable populations and infrastructure.")
+            with rc2:
+                st.header("Conclusion:")
+                st.write("Our research sheds light on the escalating threat of heatwaves in major Indian cities and underscores the significance of proactive measures to enhance climate resilience. By harnessing the power of advanced machine learning techniques, we offer valuable insights for policymakers and urban planners to develop effective strategies for mitigating the impacts of extreme heat events on public health and urban infrastructure.")
 
 
         else:
@@ -180,17 +185,23 @@ with st.container():
             st.header("Introduction:")
             st.write("Our study investigates the deteriorating air quality in major Indian cities, particularly focusing on Bangalore, Chennai, and Delhi NCR. Rapid urbanization and industrialization have contributed to soaring pollution levels, posing significant threats to public health and environmental sustainability.")
 
-            st.header("Research Methodology:")
-            st.write("We employed a comprehensive approach, utilizing machine learning models like Random Forest and Gradient Boosting alongside traditional time series forecasting methods such as SARIMA. By analyzing three years of air quality data, we aimed to discern trends and predict future AQI variations accurately.")
+            lc1, rc1 = st.columns(2)
+            with lc1:
+                st.header("Research Methodology:")
+                st.write("We employed a comprehensive approach, utilizing machine learning models like Random Forest and Gradient Boosting alongside traditional time series forecasting methods such as SARIMA. By analyzing three years of air quality data, we aimed to discern trends and predict future AQI variations accurately.")
+            with rc1:
+                st.header("Key Findings:")
+                st.write("Our analysis revealed that Random Forest exhibited strong alignment with actual AQI trends, showcasing its capability to interpret and learn from AQI data over time. Gradient Boosting also showed promising results, indicating its efficacy in capturing complex pollution dynamics and making accurate predictions.")
 
-            st.header("Key Findings:")
-            st.write("Our analysis revealed that Random Forest exhibited strong alignment with actual AQI trends, showcasing its capability to interpret and learn from AQI data over time. Gradient Boosting also showed promising results, indicating its efficacy in capturing complex pollution dynamics and making accurate predictions.")
+            lc2, rc2 = st.columns(2)
+            
+            with lc2:
+                st.header("Implications:")
+                st.write("Understanding AQI trends and predicting future variations is essential for formulating effective pollution control measures and public health interventions. Our findings highlight the value of integrating advanced analytics into environmental management strategies to mitigate the adverse impacts of air pollution on public health and ecological balance.")
 
-            st.header("Implications:")
-            st.write("Understanding AQI trends and predicting future variations is essential for formulating effective pollution control measures and public health interventions. Our findings highlight the value of integrating advanced analytics into environmental management strategies to mitigate the adverse impacts of air pollution on public health and ecological balance.")
-
-            st.header("Conclusion:")
-            st.write("Our research underscores the pressing need to address air pollution in major Indian cities and emphasizes the importance of proactive measures to improve air quality and safeguard public health. By leveraging advanced machine learning techniques, we offer valuable insights for policymakers and environmental agencies to develop targeted interventions and policies for mitigating the impacts of air pollution on human health and the environment.")
+            with rc2:
+                st.header("Conclusion:")
+                st.write("Our research underscores the pressing need to address air pollution in major Indian cities and emphasizes the importance of proactive measures to improve air quality and safeguard public health. By leveraging advanced machine learning techniques, we offer valuable insights for policymakers and environmental agencies to develop targeted interventions and policies for mitigating the impacts of air pollution on human health and the environment.")
 
 
     with right_column:
