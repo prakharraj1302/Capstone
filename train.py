@@ -12,7 +12,8 @@ import math
 import time
 import pandas as pd
 from prophet import *
-
+import warnings
+warnings.filterwarnings("ignore")
 
 def cord(city):
 # Initialize latitude and longitude
@@ -77,7 +78,7 @@ def weekly_update(city,model):
                       'nh3' :i['components']['nh3'],
                       'dt' :dt.datetime.fromtimestamp(i['dt'])},
                         ignore_index=True)
-                print(city,model)
+                # print(city,model)
           else:
              print("sleep")
              time.sleep(5)
@@ -106,7 +107,7 @@ def weekly_update(city,model):
                         'conditions': d['weather'][0]['description'],
                     }, ignore_index=True)
                 start=start+60*60
-                print(city,model)
+                # print(city,model)
               else:
                  print("sleep")
                  time.sleep(5)
