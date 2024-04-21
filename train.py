@@ -136,26 +136,26 @@ def weekly_update(city,model):
 
 def prophet_AQI(city):
 
-  one_prediction_model_name="versioning/weekone/aqi/{}_temp_csv.csv".format(city)
-  one_prediction_file_name="versioning/weekone/aqi/{}_temp_csv_forecast.csv".format(city)
-  one_data_file_name="versioning/weekone/aqi/{}_temp_csv".format(city)
+  one_prediction_model_name="versioning/weekone/aqi/{}_aqi_csv.csv".format(city)
+  one_prediction_file_name="versioning/weekone/aqi/{}_aqi_csv_forecast.csv".format(city)
+  one_data_file_name="versioning/weekone/aqi/{}_aqi_csv".format(city)
   
 
 
-  two_prediction_model_name="versioning/weektwo/aqi/{}_temp_csv.csv".format(city)
-  two_prediction_file_name="versioning/weektwo/aqi/{}_temp_csv_forecast.csv".format(city)
-  two_data_file_name="versioning/weektwo/aqi/{}_temp_csv".format(city)
+  two_prediction_model_name="versioning/weektwo/aqi/{}_aqi_csv.csv".format(city)
+  two_prediction_file_name="versioning/weektwo/aqi/{}_aqi_csv_forecast.csv".format(city)
+  two_data_file_name="versioning/weektwo/aqi/{}_aqi_csv".format(city)
 
-  three_prediction_model_name="versioning/weekthree/aqi/{}_temp_csv.csv".format(city)
-  three_prediction_file_name="versioning/weekthree/aqi/{}_temp_csv_forecast.csv".format(city)
-  three_data_file_name="versioning/three/weekthree/aqi/{}_temp_csv".format(city)
+  three_prediction_model_name="versioning/weekthree/aqi/{}_aqi_csv.csv".format(city)
+  three_prediction_file_name="versioning/weekthree/aqi/{}_aqi_csv_forecast.csv".format(city)
+  three_data_file_name="versioning/three/weekthree/aqi/{}_aqi_csv".format(city)
 
-  four_prediction_model_name="versioning/weekfour/aqi/{}_temp_csv.csv".format(city)
-  four_prediction_file_name="versioning/weekfour/aqi/{}_temp_csv_forecast.csv".format(city)
-  four_data_file_name="versioning/weekfour/aqi/{}_temp_csv".format(city)
+  four_prediction_model_name="versioning/weekfour/aqi/{}_aqi_csv.csv".format(city)
+  four_prediction_file_name="versioning/weekfour/aqi/{}_aqi_csv_forecast.csv".format(city)
+  four_data_file_name="versioning/weekfour/aqi/{}_aqi_csv".format(city)
 
-  winner_prediction_model_name="winner/aqi/winner/{}_temp_csv.csv".format(city)
-  winner_prediction_file_name="winner/aqi/winner/{}_temp_csv_forecast.csv".format(city)
+  winner_prediction_model_name="winner/aqi/winner/{}_aqi_csv.csv".format(city)
+  winner_prediction_file_name="winner/aqi/winner/{}_aqi_csv_forecast.csv".format(city)
 
   
 
