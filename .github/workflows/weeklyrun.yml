@@ -40,4 +40,4 @@ jobs:
         if: steps.commit.outputs.push == 'true'
         uses: ad-m/github-push-action@master
         with:
-          github_token: "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"
+          github_token: "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"
