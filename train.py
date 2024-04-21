@@ -25,19 +25,22 @@ def cord(city):
     }
    return dir[city]
 
-def get_perf(m , train, horizon = 365 ):
-  fcst_df = m.make_future_dataframe(periods = horizon)
-  fcst = m.predict(fcst_df)
+def get_perf(m, train, horizon=365):
+    fcst_df = m.make_future_dataframe(periods=horizon)
+    fcst = m.predict(fcst_df)
 
-  perf_df = fcst[ : -horizon]
-  perf_df['y'] = train['y']
 
-  score_mae = mean_absolute_error(perf_df['y'] , perf_df['yhat'])
-  score_rmse = math.sqrt(mean_squared_error(perf_df['y'] , perf_df['yhat']))
+    fcst.reset_index(drop=True, inplace=True)
+    train.reset_index(drop=True, inplace=True)
+    perf_df = fcst.merge(train[['ds', 'y']], on='ds', how='left')
 
-  print(score_mae)
-  print(score_rmse)
-  return score_rmse
+    score_mae = mean_absolute_error(perf_df['y'], perf_df['yhat'])
+    score_rmse = math.sqrt(mean_squared_error(perf_df['y'], perf_df['yhat']))
+
+    print(score_mae)
+    print(score_rmse)
+
+    return score_rmse
 
 #-----Weekly Dataset updation--------------
 def weekly_update(city,model):
