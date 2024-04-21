@@ -148,11 +148,11 @@ def prophet_AQI(city):
 
   three_prediction_model_name="versioning/weekthree/aqi/{}_aqi_csv.csv".format(city)
   three_prediction_file_name="versioning/weekthree/aqi/{}_aqi_csv_forecast.csv".format(city)
-  three_data_file_name="versioning/weekthree/aqi/{}_aqi_csv".format(city)
+  three_data_file_name="versioning/weekthree/aqi/{}_aqi_csv.json".format(city)
 
   four_prediction_model_name="versioning/weekfour/aqi/{}_aqi_csv.csv".format(city)
   four_prediction_file_name="versioning/weekfour/aqi/{}_aqi_csv_forecast.csv".format(city)
-  four_data_file_name="versioning/weekfour/aqi/{}_aqi_csv".format(city)
+  four_data_file_name="versioning/weekfour/aqi/{}_aqi_csv.json".format(city)
 
   winner_prediction_model_name="winner/aqi/{}_aqi_csv.csv".format(city)
   winner_prediction_file_name="winner/aqi/{}_aqi_csv_forecast.csv".format(city)
