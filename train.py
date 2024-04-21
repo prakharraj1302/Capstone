@@ -180,7 +180,7 @@ def prophet_AQI(city):
 
   #weekly update via api 
   df = weekly_update(city,'AQI')
-  df.to_csv(one_data_file_name, index=False)
+  df.to_csv(one_prediction_file_name, index=False)
 
 
 
@@ -207,7 +207,7 @@ def prophet_AQI(city):
   with open(one_prediction_model_name, 'w') as fout:
     fout.write(model_to_json(model_optimized))  # Save model
   print("model saved")
-  forecast.to_csv(one_prediction_file_name, index=False)
+  forecast.to_csv(one_data_file_name, index=False)
   print("prediction file saved")
 
   # #updating log
