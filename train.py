@@ -30,9 +30,11 @@ def get_perf(m, train, horizon=365):
     fcst = m.predict(fcst_df)
 
 
-    fcst.reset_index(drop=True, inplace=True)
-    train.reset_index(drop=True, inplace=True)
-    perf_df = fcst.merge(train[['ds', 'y']], on='ds', how='left')
+    perf_df = fcst[:-horizon].dropna(subset=['yhat'])
+    train = train.dropna(subset=['y'])
+
+
+    perf_df = perf_df.merge(train[['ds', 'y']], on='ds', how='inner')
 
     score_mae = mean_absolute_error(perf_df['y'], perf_df['yhat'])
     score_rmse = math.sqrt(mean_squared_error(perf_df['y'], perf_df['yhat']))
