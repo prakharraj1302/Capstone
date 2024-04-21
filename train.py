@@ -191,7 +191,7 @@ def prophet_AQI(city):
   )
   model_optimized.fit(data_prophet)
 
-  rmse=get_perf(model_optimized,df)
+  rmse=get_perf(model_optimized,data_prophet)
   print(rmse)
 
 
