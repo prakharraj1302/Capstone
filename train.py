@@ -179,9 +179,9 @@ def prophet_AQI(city):
 
 
 
-  data['time'] = pd.to_datetime(data['dt'], dayfirst=True)
-  data['aqi'] = data['aqi'].interpolate(method='linear')
-  data_prophet = data[['time', 'aqi']].rename(columns={'time': 'ds', 'aqi': 'y'})
+  df['time'] = pd.to_datetime(df['dt'], dayfirst=True)
+  df['aqi'] = df['aqi'].interpolate(method='linear')
+  data_prophet =df[['time', 'aqi']].rename(columns={'time': 'ds', 'aqi': 'y'})
 
 
 
@@ -191,7 +191,7 @@ def prophet_AQI(city):
   )
   model_optimized.fit(data_prophet)
 
-  rmse=get_perf(model_optimized,data)
+  rmse=get_perf(model_optimized,df)
   print(rmse)
 
 
