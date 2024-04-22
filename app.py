@@ -235,7 +235,7 @@ if selected_model == "Heat wave":
     st.subheader("Selected item")
     st.write(timeline)
 else:
-    path = "winner/{}/winner_{}_prediction.csv".format(selected_model, selected_city)
+    path = "winner/{}/{}_temp_csv_forecast.csv".format(selected_model, selected_city)
 
     df = pd.read_csv(path)
     df = timeline_prepare(df, selected_model)
