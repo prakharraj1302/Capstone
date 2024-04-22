@@ -316,6 +316,7 @@ with st.container():
             path_ben = "./versioning/weekone/{}/bangalore_aqi_csv.csv".format(selected_model)
             # ./versioning/weekone/AQI/bangalore_aqi_csv.csv
             # ./versioning\weekone\AQI\bangalore_aqi_csv.csv
+            print(path_ben)
             
             path_del = "./versioning/weekone/{}/delhi_aqi_csv.csv".format(selected_model)
             path_luc = "./versioning/weekone/{}/lucknow_aqi_csv.csv".format(selected_model)
