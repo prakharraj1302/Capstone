@@ -12,6 +12,25 @@ import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 
+#  additional IMPORTS
+import plotly.graph_objects as go
+from sttime import st_timeline
+import base64
+from shapely.geometry import Point
+import datetime
+import smtplib
+import geopandas as gpd
+import pandas as pd
+from streamlit_folium import folium_static
+from folium.plugins import Search
+import folium
+from PIL import Image
+from streamlit_lottie import st_lottie
+import streamlit as st
+import requests
+from prophet.serialize import model_from_json
+from prophet.plot import plot_plotly
+
 # Description
 def info(title, text):
     with st.expander(f"{title}"):
@@ -90,6 +109,43 @@ def line_plot_plotly(m, forecast, mode, model):
 
     return fig
 
+# NEW
+def heatwave_prepare(df):
+    df["datetime"] = pd.to_datetime(df["datetime"])
+    df.set_index("datetime", inplace=True)
+    df = df.resample("d").max()
+    df = df.reset_index()
+    df["date"] = df["datetime"].dt.date
+    df.set_index("date", inplace=True)
+    T = (df["temp"] * 9 / 5) + 32
+    df["temp"] = T
+    R = df["humidity"]
+    # Calculating Heat index using heat index chart formula
+    hi = (
+        -42.379
+        + 2.04901523 * T
+        + 10.14333127 * R
+        - 0.22475541 * T * R
+        - 6.83783 * (10**-3) * (T * T)
+        - 5.481717 * (10**-2) * R * R
+        + 1.22874 * (10**-3) * T * T * R
+        + 8.5282 * (10**-4) * T * R * R
+        - 1.99 * (10**-6) * T * T * R * R
+    )
+    df["heat_index"] = hi
+    df["occurence of heat wave"] = df["temp"].apply(
+        lambda x: "yes" if x > 128 else "no"
+    )
+    return df
+
+def aqi_prepare(df):
+    df["dt"] = pd.to_datetime(df["dt"])
+    df.set_index("dt", inplace=True)
+    df = df.resample("d").max()
+    df = df.reset_index()
+    df["date"] = df["dt"].dt.date
+    df.set_index("date", inplace=True)
+    return df
 
 # ---- LOAD ASSETS ----
 
@@ -126,8 +182,174 @@ st.sidebar.markdown('''
 Created with ❤️ by [Team Tarang.ai](https://github.com/iamneo-production/00aa9422-7c04-4b7c-975b-6ed887ff7d95).
 
 ''')
+# ___MAP___ 
+retrain_log_path = "./retrain/{}/{}_retrain_log.csv".format(selected_model, selected_city)
+df = pd.read_csv(retrain_log_path)
 
 
+# Unix timestamp in seconds
+unix_timestamp = df["last updated date"].iloc[-1]
+
+# Convert Unix timestamp to datetime object
+date_time = datetime.datetime.fromtimestamp(unix_timestamp)
+
+year_string = int(date_time.strftime("%Y"))
+month_string = int(date_time.strftime("%m"))
+date_string = int(date_time.strftime("%d"))
+
+
+if selected_model == "Heat wave":
+    min_date = datetime.date(2012, 1, 1)
+    max_date = datetime.date(year_string, month_string, date_string)
+else:
+    min_date = datetime.date(2020, 12, 2)
+    max_date = datetime.date(year_string, month_string, date_string)
+
+d = st.date_input(
+    "Choose a date", datetime.date(2023, 1, 1), min_value=min_date, max_value=max_date
+)
+with st.container():
+
+    left_column, middle_column, right_column = st.columns(3)
+    with left_column:
+        path_ben = "./versioning/weekone/{}/bangalore_temp_csv.csv".format(selected_model)
+        path_del = "./versioning/weekone/{}/delhi_temp_csv.csv".format(selected_model)
+        path_luc = "./versioning/weekone/{}/lucknow_temp_csv.csv".format(selected_model)
+        path_chn = "./versioning/weekone/{}/chennai_temp_csv.csv".format(selected_model)
+        
+        #  datetime,datetimeEpoch,tempmax,tempmin,temp,feelslikemax,feelslikemin,feelslike,dew,humidity,precip,precipprob,precipcover
+
+        # path_wa = 'versioning/one/{}/1_Warangal_data.csv'.format(selected_model)
+        
+        df_ben = pd.read_csv(path_ben)
+        df_del = pd.read_csv(path_del)
+        df_luc = pd.read_csv(path_luc)
+        df_chn = pd.read_csv(path_chn)
+        # df_wa = pd.read_csv(path_wa)
+
+        if selected_model == "Heat wave":
+            df_ben = heatwave_prepare(df_ben)
+            df_del = heatwave_prepare(df_del)
+            df_luc = heatwave_prepare(df_luc)
+            df_chn = heatwave_prepare(df_chn)
+
+            temp_ben = df_ben.loc[d, "temp"]
+            temp_del = df_del.loc[d, "temp"]
+            temp_luc = df_luc.loc[d, "temp"]
+            temp_chn = df_chn.loc[d, "temp"]
+            # temp_wa = df_wa.loc[d, 'temp']
+            # Select the temperature and heat index value for a particular date and store it in a variable
+
+            heat_index_ben = df_ben.loc[d, "heat_index"]
+            heat_index_del = df_del.loc[d, "heat_index"]
+            heat_index_luc = df_luc.loc[d, "heat_index"]
+            heat_index_chn = df_chn.loc[d, "heat_index"]
+            # heat_index_wa = df_wa.loc[d, 'heat_index']
+            cities = {
+                "city": ["bengaluru", "delhi", "lucknow", "chennai"],
+                "Heat Index": [
+                    heat_index_ben,
+                    heat_index_del,
+                    heat_index_luc,
+                    heat_index_chn,
+                ],
+                "Temperature(°F)": [temp_ben, temp_del, temp_luc, temp_chn],
+                "latitude": [12.9767936, 28.6517178, 26.8381, 13.0836939],
+                "longitude": [77.590082, 77.2219388, 80.9346001, 80.270186],
+            }
+
+            # Convert the city data to a GeoDataFrame
+            geometry = [
+                Point(xy) for xy in zip(cities["longitude"], cities["latitude"])
+            ]
+            cities_gdf = gpd.GeoDataFrame(cities, geometry=geometry, crs="EPSG:4326")
+
+            # Save the GeoDataFrame to a GeoJSON file
+            cities_gdf.to_file("heatwave_cities.geojson", driver="GeoJSON")
+
+            # Load the city data
+            cities = gpd.read_file("heatwave_cities.geojson")
+
+            # Create a folium map centered on the India
+            m = folium.Map(location=[17.9774221, 79.52881], zoom_start=6)
+
+            # Create a GeoJson layer for the city data
+            geojson = folium.GeoJson(
+                cities,
+                name="City Data",
+                tooltip=folium.GeoJsonTooltip(
+                    fields=["city", "Heat Index", "Temperature(°F)"],
+                    aliases=["City", "Heat Index", "Temperature(°F)"],
+                    localize=True,
+                ),
+            ).add_to(m)
+
+            # Add a search bar to the map
+            search = Search(
+                layer=geojson,
+                geom_type="Point",
+                placeholder="Search for a city",
+                collapsed=False,
+                search_label="city",
+            ).add_to(m)
+
+            folium_static(m, width=500, height=500)
+        else:
+            df_ben = aqi_prepare(df_ben)
+            df_del = aqi_prepare(df_del)
+            df_luc = aqi_prepare(df_luc)
+            df_che = aqi_prepare(df_chn)
+            # df_wa = aqi_prepare(df_wa)
+
+            aqi_ben = df_ben.loc[d, "aqi"]
+            aqi_del = df_del.loc[d, "aqi"]
+            aqi_luc = df_luc.loc[d, "aqi"]
+            aqi_chn = df_che.loc[d, "aqi"]
+            # aqi_wa = df_wa.loc[d, "aqi"]
+
+            # Select the temperature and heat index value for a particular date and store it in a variable
+
+            cities = {
+                'city': ['bengaluru', 'delhi', 'lucknow', 'chennai'],
+                'AQI': [aqi_ben, aqi_del, aqi_luc, aqi_chn],
+                'latitude': [12.9767936, 28.6517178, 26.8381, 13.0836939],
+                'longitude': [77.590082, 77.2219388, 80.9346001, 80.270186]
+            }
+
+            # Convert the city data to a GeoDataFrame
+            geometry = [
+                Point(xy) for xy in zip(cities["longitude"], cities["latitude"])
+            ]
+            cities_gdf = gpd.GeoDataFrame(cities, geometry=geometry, crs="EPSG:4326")
+
+            # Save the GeoDataFrame to a GeoJSON file
+            cities_gdf.to_file("aqi_cities.geojson", driver="GeoJSON")
+
+            # Load the city data
+            cities = gpd.read_file("aqi_cities.geojson")
+
+            # Create a folium map centered on the India
+            m = folium.Map(location=[17.9774221, 79.52881], zoom_start=6)
+
+            # Create a GeoJson layer for the city data
+            geojson = folium.GeoJson(
+                cities,
+                name="City Data",
+                tooltip=folium.GeoJsonTooltip(
+                    fields=["city", "AQI"], aliases=["City", "AQI"], localize=True
+                ),
+            ).add_to(m)
+
+            # Add a search bar to the map
+            search = Search(
+                layer=geojson,
+                geom_type="Point",
+                placeholder="Search for a city",
+                collapsed=False,
+                search_label="city",
+            ).add_to(m)
+
+            folium_static(m, width=520, height=520)
 
 
 # ---- HEADER SECTION ----
