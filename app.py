@@ -192,7 +192,7 @@ Created with ❤️ by [Team Tarang.ai](https://github.com/iamneo-production/00a
 def timeline_prepare(df, model):
     if model == "Heat wave":
         df["occurence of heat wave"] = df["yhat_upper"].apply(
-            lambda x: "yes" if x >= 44.9 else "no"
+            lambda x: "yes" if x >= 44.0 else "no"
         )
         df = df.iloc[4017:]
         print('occour:', df['occurence of heat wave'].value_counts())
@@ -237,7 +237,7 @@ if selected_model == "Heat wave":
     st.write(timeline)
 else:
     path = "winner/{}/{}_aqi_csv_forecast.csv".format(selected_model, selected_city)
-
+    print("PATH:" ,path)
     df = pd.read_csv(path)
     df = timeline_prepare(df, selected_model)
     df = df[df["Extreme AQI events"] == "yes"]
