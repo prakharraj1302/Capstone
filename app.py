@@ -217,6 +217,9 @@ with st.container():
     left_column, middle_column, right_column = st.columns(3)
     with left_column:
         path_ben = "./versioning/weekone/{}/bangalore_temp_csv.csv".format(selected_model)
+        # versioning/weekone/Heat wave/bangalore_temp_csv.csv
+        # versioning\weekone\heatwave\bangalore_temp_csv.csv
+        
         path_del = "./versioning/weekone/{}/delhi_temp_csv.csv".format(selected_model)
         path_luc = "./versioning/weekone/{}/lucknow_temp_csv.csv".format(selected_model)
         path_chn = "./versioning/weekone/{}/chennai_temp_csv.csv".format(selected_model)
