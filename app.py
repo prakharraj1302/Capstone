@@ -195,8 +195,8 @@ def timeline_prepare(df, model):
             lambda x: "yes" if x >= 44.0 else "no"
         )
         print(df["yhat_upper"].max())
-        df = df.iloc[4017:]
         print('occour:', df['occurence of heat wave'].value_counts())
+        df = df.iloc[4017:]
 
     else:
         df["yhat"] = df["yhat"].apply(conv)
@@ -591,59 +591,51 @@ st.write("Select the desired criterias from the sidebar")
 with st.container():
 
     with st.spinner('Loading Model Into Memory....'):
-        pass
-        # m = load_model(selected_model, selected_city)
+        m = load_model(selected_model, selected_city)
 
-    # forecast = load_prediction(selected_model, selected_city)
-# 
+    forecast = load_prediction(selected_model, selected_city)
 
+
+path1 = "winner/{}/{}_temp_csv_forecast.csv".format(
+    selected_model, selected_city)
 # winner/Heat wave/winner_bangalore_prediction.csv
 # C:\Users\PETE\Desktop\ADMIN\CAPSTONE\Capstone\winner\Heat wave\bangalore_temp_csv_forecast.csv
 
-st.header("Graph")
-if selected_model == 'Heat wave':
-    path1 = "winner/{}/{}_temp_csv_forecast.csv".format(selected_model, selected_city)
-    print(path1)
-    forecast = pd.read_csv(path1)
-    # return df
+# st.header("Graph")
+# if selected_model == 'Heat wave':
+#     info("Info", '''The Graph displays the forecasted values and their associated uncertainty intervals over time. 
+#     Shaded areas above and below the line represent the uncertainty interval.
+#     The blue line represents the forecast prediction.''')
 
-    info("Info", '''The Graph displays the forecasted values and their associated uncertainty intervals over time. 
-    Shaded areas above and below the line represent the uncertainty interval.
-    The blue line represents the forecast prediction.''')
+#     agree = st.checkbox('Line graph')
 
-    agree = st.checkbox('Line graph')
+#     if agree:
+#         fig1 = line_plot_plotly(m, forecast, 'lines', selected_model)
 
-    if agree:
-        fig1 = line_plot_plotly(m, forecast, 'lines', selected_model)
+#         fig1.update_layout(
+#             plot_bgcolor='#7FFFD4',  # set the background color
+#             paper_bgcolor='#F8F8F8',  # set the background color of the plot area
+#         )
+#         st.plotly_chart(fig1)
 
-        fig1.update_layout(
-            plot_bgcolor='#7FFFD4',  # set the background color
-            paper_bgcolor='#F8F8F8',  # set the background color of the plot area
-        )
-        st.plotly_chart(fig1)
+#     else:
+#         fig1 = plot_plotly(m, forecast)
 
-    else:
-        fig1 = plot_plotly(m, forecast)
+#         fig1.update_layout(
+#             plot_bgcolor='#7FFFD4',  # set the background color
+#             paper_bgcolor='#F8F8F8',  # set the background color of the plot area
+#         )
+#         st.plotly_chart(fig1)
+# else:
+#     info("Info", '''The Graph displays the prediction and actual AQI Reading for the range of the full dataset and for year 2023
+#     The orange points shows the predicted value and the grey points shows the actual value of AQI.''')
+#     fig1 = line_plot_plotly(m, forecast, 'markers', selected_model)
 
-        fig1.update_layout(
-            plot_bgcolor='#7FFFD4',  # set the background color
-            paper_bgcolor='#F8F8F8',  # set the background color of the plot area
-        )
-        st.plotly_chart(fig1)
-else:
-    path1 = "winner/{}/{}_aqi_csv_forecast.csv".format(selected_model, selected_city)
-    print(path1)
-    forecast = pd.read_csv(path1)
-    
-    info("Info", '''The Graph displays the prediction and actual AQI Reading for the range of the full dataset and for year 2023
-    The orange points shows the predicted value and the grey points shows the actual value of AQI.''')
-    fig1 = line_plot_plotly(m, forecast, 'markers', selected_model)
-
-    fig1.update_layout(
-        plot_bgcolor='#7FFFD4',  # set the background color
-        paper_bgcolor='#F8F8F8',  # set the background color of the plot area
-    )
-    st.plotly_chart(fig1)
+#     fig1.update_layout(
+#         plot_bgcolor='#7FFFD4',  # set the background color
+#         paper_bgcolor='#F8F8F8',  # set the background color of the plot area
+#     )
+#     st.plotly_chart(fig1)
 
 
 
