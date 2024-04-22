@@ -194,6 +194,7 @@ def timeline_prepare(df, model):
         df["occurence of heat wave"] = df["yhat_upper"].apply(
             lambda x: "yes" if x >= 44.0 else "no"
         )
+        print(df["yhat_upper"].max())
         df = df.iloc[4017:]
         print('occour:', df['occurence of heat wave'].value_counts())
 
