@@ -63,6 +63,9 @@ def load_prediction(selected_model, city):
 def load_model(selected_model, city):
     
     # Heat wave/Bengaluru_model.json
+    # ./versioning/weekone/Heat wave/bengaluru_temp_csv.json
+    # .\versioning\weekone\Heat wave\bangalore_temp_csv.json
+    
     city = city.lower()
     path = "./versioning/weekone/{}/{}_temp_csv.json".format(selected_model, city)
     with open(path, 'r') as fin:
@@ -173,7 +176,7 @@ selected_model = st.sidebar.selectbox('Choose:', ('Heat wave', 'AQI'))
 st.sidebar.write('''
 
 ''')
-cities = ('Bengaluru','Delhi', 'Chennai', 'Lucknow' )
+cities = ('bangalore','Delhi', 'Chennai', 'Lucknow' )
 selected_city = st.sidebar.selectbox('Select a city for prediction', cities)
 
 # image = Image.open('images/logo.png')
