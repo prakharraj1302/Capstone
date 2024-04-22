@@ -15,6 +15,7 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 #  additional IMPORTS
 import plotly.graph_objects as go
 # from sttime import st_timeline
+# streamlit-vis-timeline
 import base64
 from shapely.geometry import Point
 import datetime
@@ -189,6 +190,7 @@ Created with ❤️ by [Team Tarang.ai](https://github.com/iamneo-production/00a
 
 ''')
 # ___MAP___ 
+selected_city = selected_city.lower()
 retrain_log_path = "./retrain/{}/{}_retrain_log.csv".format(selected_model, selected_city)
 # retrain_log_path = "./retrain/Heat wave/bangalore_retrain_log.csv"
 # retrain/Heat wave/Bengaluru_retrain_log.csv
@@ -312,10 +314,8 @@ with st.container():
             folium_static(m, width=500, height=500)
         else:
             path_ben = "./versioning/weekone/{}/bangalore_aqi_csv.csv".format(selected_model)
-            # versioning/weekone/AQI/bangalore_temp_csv.csv
-            # versioning\weekone\AQI\bangalore_aqi_csv.csv
-            # versioning/weekone/Heat wave/bangalore_temp_csv.csv
-            # versioning\weekone\heatwave\bangalore_temp_csv.csv
+            # ./versioning/weekone/AQI/bangalore_aqi_csv.csv
+            # ./versioning\weekone\AQI\bangalore_aqi_csv.csv
             
             path_del = "./versioning/weekone/{}/delhi_aqi_csv.csv".format(selected_model)
             path_luc = "./versioning/weekone/{}/lucknow_aqi_csv.csv".format(selected_model)
