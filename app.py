@@ -263,7 +263,7 @@ else:
         "The timeline highlights the major events in the year 2023 regarding severe Air Quality conditions",
     )
 
-    options = {"min": "2023-01-01", "max": "2023-12-31"}
+    options = {"min": "2024-01-01", "max": "2024-12-31"}
 
     timeline = st_timeline(items, groups=[], options=options, height="300px")
     st.subheader("Selected item")
