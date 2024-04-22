@@ -14,7 +14,7 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 
 #  additional IMPORTS
 import plotly.graph_objects as go
-from sttime import st_timeline
+# from sttime import st_timeline
 import base64
 from shapely.geometry import Point
 import datetime
