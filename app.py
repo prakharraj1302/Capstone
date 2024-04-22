@@ -591,18 +591,22 @@ st.write("Select the desired criterias from the sidebar")
 with st.container():
 
     with st.spinner('Loading Model Into Memory....'):
-        m = load_model(selected_model, selected_city)
+        pass
+        # m = load_model(selected_model, selected_city)
 
-    forecast = load_prediction(selected_model, selected_city)
+    # forecast = load_prediction(selected_model, selected_city)
+# 
 
-
-path1 = "winner/{}/{}_temp_csv_forecast.csv".format(
-    selected_model, selected_city)
 # winner/Heat wave/winner_bangalore_prediction.csv
 # C:\Users\PETE\Desktop\ADMIN\CAPSTONE\Capstone\winner\Heat wave\bangalore_temp_csv_forecast.csv
 
 st.header("Graph")
 if selected_model == 'Heat wave':
+    path1 = "winner/{}/{}_temp_csv_forecast.csv".format(selected_model, selected_city)
+    print(path1)
+    forecast = pd.read_csv(path1)
+    # return df
+
     info("Info", '''The Graph displays the forecasted values and their associated uncertainty intervals over time. 
     Shaded areas above and below the line represent the uncertainty interval.
     The blue line represents the forecast prediction.''')
@@ -627,6 +631,10 @@ if selected_model == 'Heat wave':
         )
         st.plotly_chart(fig1)
 else:
+    path1 = "winner/{}/{}_aqi_csv_forecast.csv".format(selected_model, selected_city)
+    print(path1)
+    forecast = pd.read_csv(path1)
+    
     info("Info", '''The Graph displays the prediction and actual AQI Reading for the range of the full dataset and for year 2023
     The orange points shows the predicted value and the grey points shows the actual value of AQI.''')
     fig1 = line_plot_plotly(m, forecast, 'markers', selected_model)
