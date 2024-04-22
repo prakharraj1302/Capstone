@@ -183,7 +183,11 @@ Created with ❤️ by [Team Tarang.ai](https://github.com/iamneo-production/00a
 
 ''')
 # ___MAP___ 
-retrain_log_path = "./retrain/{}/{}_retrain_log.csv".format(selected_model, selected_city)
+# retrain_log_path = "./retrain/{}/{}_retrain_log.csv".format(selected_model, selected_city)
+retrain_log_path = "./retrain/Heat wave/bangalore_retrain_log.csv"
+# retrain/Heat wave/Bengaluru_retrain_log.csv
+# retrain\Heat wave\bangalore_retrain_log.csv
+# retrain\AQI\bangalore_retrain_log.csv
 df = pd.read_csv(retrain_log_path)
 
 
