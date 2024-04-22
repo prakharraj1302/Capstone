@@ -222,25 +222,28 @@ with st.container():
 
     left_column, middle_column, right_column = st.columns(3)
     with left_column:
-        path_ben = "./versioning/weekone/{}/bangalore_temp_csv.csv".format(selected_model)
-        # versioning/weekone/Heat wave/bangalore_temp_csv.csv
-        # versioning\weekone\heatwave\bangalore_temp_csv.csv
-        
-        path_del = "./versioning/weekone/{}/delhi_temp_csv.csv".format(selected_model)
-        path_luc = "./versioning/weekone/{}/lucknow_temp_csv.csv".format(selected_model)
-        path_chn = "./versioning/weekone/{}/chennai_temp_csv.csv".format(selected_model)
-        
-        #  datetime,datetimeEpoch,tempmax,tempmin,temp,feelslikemax,feelslikemin,feelslike,dew,humidity,precip,precipprob,precipcover
-
-        # path_wa = 'versioning/one/{}/1_Warangal_data.csv'.format(selected_model)
-        
-        df_ben = pd.read_csv(path_ben)
-        df_del = pd.read_csv(path_del)
-        df_luc = pd.read_csv(path_luc)
-        df_chn = pd.read_csv(path_chn)
         # df_wa = pd.read_csv(path_wa)
 
         if selected_model == "Heat wave":
+            path_ben = "./versioning/weekone/{}/bangalore_temp_csv.csv".format(selected_model)
+            # versioning/weekone/AQI/bangalore_temp_csv.csv
+            # versioning\weekone\AQI\bangalore_aqi_csv.csv
+            # versioning/weekone/Heat wave/bangalore_temp_csv.csv
+            # versioning\weekone\heatwave\bangalore_temp_csv.csv
+            
+            path_del = "./versioning/weekone/{}/delhi_temp_csv.csv".format(selected_model)
+            path_luc = "./versioning/weekone/{}/lucknow_temp_csv.csv".format(selected_model)
+            path_chn = "./versioning/weekone/{}/chennai_temp_csv.csv".format(selected_model)
+            
+            #  datetime,datetimeEpoch,tempmax,tempmin,temp,feelslikemax,feelslikemin,feelslike,dew,humidity,precip,precipprob,precipcover
+
+            # path_wa = 'versioning/one/{}/1_Warangal_data.csv'.format(selected_model)
+            
+            df_ben = pd.read_csv(path_ben)
+            df_del = pd.read_csv(path_del)
+            df_luc = pd.read_csv(path_luc)
+            df_chn = pd.read_csv(path_chn)
+            
             df_ben = heatwave_prepare(df_ben)
             df_del = heatwave_prepare(df_del)
             df_luc = heatwave_prepare(df_luc)
@@ -308,6 +311,25 @@ with st.container():
 
             folium_static(m, width=500, height=500)
         else:
+            path_ben = "./versioning/weekone/{}/bangalore_aqi_csv.csv".format(selected_model)
+            # versioning/weekone/AQI/bangalore_temp_csv.csv
+            # versioning\weekone\AQI\bangalore_aqi_csv.csv
+            # versioning/weekone/Heat wave/bangalore_temp_csv.csv
+            # versioning\weekone\heatwave\bangalore_temp_csv.csv
+            
+            path_del = "./versioning/weekone/{}/delhi_aqi_csv.csv".format(selected_model)
+            path_luc = "./versioning/weekone/{}/lucknow_aqi_csv.csv".format(selected_model)
+            path_chn = "./versioning/weekone/{}/chennai_aqi_csv.csv".format(selected_model)
+            
+            #  datetime,datetimeEpoch,tempmax,tempmin,temp,feelslikemax,feelslikemin,feelslike,dew,humidity,precip,precipprob,precipcover
+
+            # path_wa = 'versioning/one/{}/1_Warangal_data.csv'.format(selected_model)
+            
+            df_ben = pd.read_csv(path_ben)
+            df_del = pd.read_csv(path_del)
+            df_luc = pd.read_csv(path_luc)
+            df_chn = pd.read_csv(path_chn)
+            
             df_ben = aqi_prepare(df_ben)
             df_del = aqi_prepare(df_del)
             df_luc = aqi_prepare(df_luc)
