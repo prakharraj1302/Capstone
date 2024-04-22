@@ -14,7 +14,7 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 
 #  additional IMPORTS
 import plotly.graph_objects as go
-# from sttime import st_timeline
+from sttime import st_timeline
 # streamlit-vis-timeline
 import base64
 from shapely.geometry import Point
@@ -187,8 +187,89 @@ selected_city = st.sidebar.selectbox('Select a city for prediction', cities)
 st.sidebar.markdown('''
 ---
 Created with ❤️ by [Team Tarang.ai](https://github.com/iamneo-production/00aa9422-7c04-4b7c-975b-6ed887ff7d95).
-
 ''')
+
+def timeline_prepare(df, model):
+    if model == "Heat wave":
+        df["occurence of heat wave"] = df["yhat_upper"].apply(
+            lambda x: "yes" if x >= 44.9 else "no"
+        )
+        df = df.iloc[4017:]
+
+    else:
+        df["yhat"] = df["yhat"].apply(conv)
+        df["Extreme AQI events"] = df["yhat"].apply(lambda x: "yes" if x > 4 else "no")
+    return df
+
+if selected_model == "Heat wave":
+    path = "winner/{}/winner_{}_prediction.csv".format(selected_model, selected_city)
+
+    df = pd.read_csv(path)
+    df = timeline_prepare(df, selected_model)
+
+    df = df[df["occurence of heat wave"] == "yes"]
+    # Convert the dataframe to a list of dictionaries
+    items = []
+    i = 1
+    for index, row in df.iterrows():
+        yhat_upper = str(row["yhat_upper"])
+        yhat_lower = str(row["yhat_lower"])
+        content = "On {}, {} is expected to experience a maximum temperature of {} and a minimum temperature of {}.".format(
+            str(row["ds"]), selected_city, yhat_upper, yhat_lower
+        )
+        item = {"id": i, "content": "⚠", "message": content, "start": str(row["ds"])}
+        items.append(item)
+        i = i + 1
+
+    timeine_title = "Major Heat wave occurrences in the year 2023"
+    st.header(timeine_title)
+    info(
+        "Info",
+        "The timeline highlights the major events in the year 2023 regarding the occurrence of Heat waves.",
+    )
+
+    options = {"min": "2023-01-01", "max": "2023-12-31"}
+
+    timeline = st_timeline(items, groups=[], options=options, height="300px")
+    st.subheader("Selected item")
+    st.write(timeline)
+else:
+    path = "winner/{}/winner_{}_prediction.csv".format(selected_model, selected_city)
+
+    df = pd.read_csv(path)
+    df = timeline_prepare(df, selected_model)
+    df = df[df["Extreme AQI events"] == "yes"]
+
+    # Convert the dataframe to a list of dictionaries
+    items = []
+    i = 1
+    for index, row in df.iterrows():
+        yhat = str(row["yhat"])
+        content = "The predicted AQI for {} on {} is {}".format(
+            selected_city, str(row["ds"]), yhat
+        )
+        item = {"id": i, "content": "⚠", "message": content, "start": str(row["ds"])}
+        items.append(item)
+        i = i + 1
+
+    timeine_title = (
+        "Major events in the year 2023 regarding severe Air Quality conditions."
+    )
+    st.header(timeine_title)
+
+    info(
+        "Info",
+        "The timeline highlights the major events in the year 2023 regarding severe Air Quality conditions",
+    )
+
+    options = {"min": "2023-01-01", "max": "2023-12-31"}
+
+    timeline = st_timeline(items, groups=[], options=options, height="300px")
+    st.subheader("Selected item")
+    st.write(timeline)
+    
+    
+    
 # ___MAP___ 
 selected_city = selected_city.lower()
 retrain_log_path = "./retrain/{}/{}_retrain_log.csv".format(selected_model, selected_city)
@@ -220,6 +301,10 @@ else:
 d = st.date_input(
     "Choose a date", datetime.date(2023, 1, 1), min_value=min_date, max_value=max_date
 )
+
+
+
+
 with st.container():
 
     left_column, middle_column, right_column = st.columns(3)
