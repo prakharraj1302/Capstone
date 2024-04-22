@@ -278,7 +278,7 @@ with st.container():
             cities = gpd.read_file("heatwave_cities.geojson")
 
             # Create a folium map centered on the India
-            m = folium.Map(location=[21.184241, 79.824362], zoom_start=3)
+            m = folium.Map(location=[21.184241, 79.824362], zoom_start=5)
 
             # Create a GeoJson layer for the city data
             geojson = folium.GeoJson(
