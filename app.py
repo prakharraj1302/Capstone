@@ -195,6 +195,7 @@ def timeline_prepare(df, model):
             lambda x: "yes" if x >= 44.9 else "no"
         )
         df = df.iloc[4017:]
+        print('occour:', df['occurence of heat wave'].value_counts())
 
     else:
         df["yhat"] = df["yhat"].apply(conv)
