@@ -201,6 +201,7 @@ def timeline_prepare(df, model):
         df["Extreme AQI events"] = df["yhat"].apply(lambda x: "yes" if x > 4 else "no")
     return df
 
+selected_city = selected_city.lower()
 if selected_model == "Heat wave":
     path = "winner/{}/winner_{}_prediction.csv".format(selected_model, selected_city)
 
@@ -593,8 +594,10 @@ with st.container():
     forecast = load_prediction(selected_model, selected_city)
 
 
-path1 = "winner/{}/winner_{}_prediction.csv".format(
+path1 = "winner/{}/{}_temp_csv_forecast.csv".format(
     selected_model, selected_city)
+# winner/Heat wave/winner_bangalore_prediction.csv
+# C:\Users\PETE\Desktop\ADMIN\CAPSTONE\Capstone\winner\Heat wave\bangalore_temp_csv_forecast.csv
 
 st.header("Graph")
 if selected_model == 'Heat wave':
