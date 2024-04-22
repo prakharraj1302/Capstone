@@ -64,7 +64,7 @@ def load_model(selected_model, city):
     
     # Heat wave/Bengaluru_model.json
     city = city.lower()
-    path = "./versioning/weekone/{}/{}_temp_csv.csv".format(selected_model, city)
+    path = "./versioning/weekone/{}/{}_temp_csv.json".format(selected_model, city)
     with open(path, 'r') as fin:
         m = model_from_json(fin.read())  # Load model
     return m
